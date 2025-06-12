@@ -5,12 +5,12 @@ import 'injection/injection.dart';
 import 'routing/app_router.dart';
 import 'features/home/presentation/bloc/counter_bloc.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   try {
-    // Initialize dependency injection synchronously
-    configureDependencies();
+    // Initialize dependency injection asynchronously for SharedPreferences
+    await configureDependencies();
     runApp(const MyApp());
   } catch (e) {
     debugPrint('Error initializing app: $e');

@@ -10,6 +10,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:blocpatternflutter/core/network/network_module.dart' as _i506;
+import 'package:blocpatternflutter/core/utils/shared_preferences_module.dart'
+    as _i748;
 import 'package:blocpatternflutter/features/home/data/datasources/counter_local_data_source.dart'
     as _i541;
 import 'package:blocpatternflutter/features/home/data/datasources/counter_local_data_source_new.dart'
@@ -27,21 +29,27 @@ import 'package:blocpatternflutter/features/home/presentation/bloc/counter_bloc.
 import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
-  _i174.GetIt init({
+  Future<_i174.GetIt> init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
-  }) {
+  }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final networkModule = _$NetworkModule();
+    final sharedPreferencesModule = _$SharedPreferencesModule();
     gh.lazySingleton<_i361.Dio>(() => networkModule.dio);
+    await gh.lazySingletonAsync<_i460.SharedPreferences>(
+      () => sharedPreferencesModule.sharedPreferences,
+      preResolve: true,
+    );
     gh.factory<_i89.CounterLocalDataSource>(
-      () => _i89.CounterLocalDataSourceImpl(),
+      () => _i89.CounterLocalDataSourceImpl(gh<_i460.SharedPreferences>()),
     );
     gh.factory<_i541.CounterLocalDataSource>(
-      () => _i541.CounterLocalDataSourceImpl(),
+      () => _i541.CounterLocalDataSourceImpl(gh<_i460.SharedPreferences>()),
     );
     gh.factory<_i549.CounterRepository>(
       () => _i808.CounterRepositoryImpl(gh<_i541.CounterLocalDataSource>()),
@@ -63,3 +71,5 @@ extension GetItInjectableX on _i174.GetIt {
 }
 
 class _$NetworkModule extends _i506.NetworkModule {}
+
+class _$SharedPreferencesModule extends _i748.SharedPreferencesModule {}

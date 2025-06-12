@@ -1,6 +1,6 @@
 class AppConstants {
   // App Info
-  static const String appName = 'AI Music Profanity Remover';
+  static const String appName = 'BLoC Pattern Example';
   static const String appVersion = '1.0.0';
 
   // API Constants
