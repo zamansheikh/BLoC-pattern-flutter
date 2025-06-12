@@ -33,7 +33,7 @@ class HomeView extends StatelessWidget {
         ],
       ),
       body: const Padding(
-        padding: EdgeInsets.all(AppConstants.spacingM),
+        padding: EdgeInsets.all(UIConstants.spacingM),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -42,9 +42,9 @@ class HomeView extends StatelessWidget {
               style: TextStyle(fontSize: 16),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: AppConstants.spacingL),
+            SizedBox(height: UIConstants.spacingL),
             CounterDisplay(),
-            SizedBox(height: AppConstants.spacingXL),
+            SizedBox(height: UIConstants.spacingXL),
             _ActionButtons(),
           ],
         ),

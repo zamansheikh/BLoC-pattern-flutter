@@ -16,7 +16,7 @@ class SettingsPage extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(AppConstants.spacingM),
+        padding: const EdgeInsets.all(UIConstants.spacingM),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -24,7 +24,7 @@ class SettingsPage extends StatelessWidget {
               'App Settings',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
-            const SizedBox(height: AppConstants.spacingL),
+            const SizedBox(height: UIConstants.spacingL),
             Card(
               child: Column(
                 children: [
@@ -83,7 +83,7 @@ class SettingsPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: AppConstants.spacingL),
+            const SizedBox(height: UIConstants.spacingL),
             Card(
               child: ListTile(
                 leading: Icon(
