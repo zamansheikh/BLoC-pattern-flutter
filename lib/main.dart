@@ -4,6 +4,7 @@ import 'core/theme/app_theme.dart';
 import 'injection/injection.dart';
 import 'routing/app_router.dart';
 import 'features/home/presentation/bloc/counter_bloc.dart';
+import 'core/auth/auth_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<CounterBloc>(create: (context) => getIt<CounterBloc>()),
+        BlocProvider<AuthBloc>(create: (context) => getIt<AuthBloc>()),
       ],
       child: MaterialApp.router(
         title: 'AI Music Profanity Remover',

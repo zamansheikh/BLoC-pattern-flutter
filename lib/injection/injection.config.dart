@@ -9,17 +9,16 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:blocpatternflutter/core/auth/auth_bloc.dart' as _i888;
 import 'package:blocpatternflutter/core/network/api_clients.dart' as _i817;
 import 'package:blocpatternflutter/core/network/api_example_bloc.dart' as _i714;
 import 'package:blocpatternflutter/core/network/api_service.dart' as _i359;
 import 'package:blocpatternflutter/core/network/network_info.dart' as _i408;
 import 'package:blocpatternflutter/core/network/network_module.dart' as _i506;
-import 'package:blocpatternflutter/core/utils/shared_preferences_module.dart'
+import 'package:blocpatternflutter/core/storage/shared_preferences_module.dart'
     as _i748;
 import 'package:blocpatternflutter/features/home/data/datasources/counter_local_data_source.dart'
     as _i541;
-import 'package:blocpatternflutter/features/home/data/datasources/counter_local_data_source_new.dart'
-    as _i89;
 import 'package:blocpatternflutter/features/home/data/repositories/counter_repository_impl.dart'
     as _i808;
 import 'package:blocpatternflutter/features/home/domain/repositories/counter_repository.dart'
@@ -50,9 +49,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => sharedPreferencesModule.sharedPreferences,
       preResolve: true,
     );
-    gh.factory<_i89.CounterLocalDataSource>(
-      () => _i89.CounterLocalDataSourceImpl(gh<_i460.SharedPreferences>()),
-    );
     gh.factory<_i541.CounterLocalDataSource>(
       () => _i541.CounterLocalDataSourceImpl(gh<_i460.SharedPreferences>()),
     );
@@ -80,6 +76,10 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i817.GenericApiClient>(
       () => _i817.GenericApiClient(gh<_i359.ApiService>()),
+    );
+    gh.factory<_i888.AuthBloc>(
+      () =>
+          _i888.AuthBloc(gh<_i817.AuthApiClient>(), gh<_i817.UserApiClient>()),
     );
     gh.factory<_i581.CounterBloc>(
       () => _i581.CounterBloc(

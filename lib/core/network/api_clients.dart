@@ -127,6 +127,11 @@ class AuthApiClient {
     final token = await _getStoredToken();
     return token != null;
   }
+
+  /// Get the current stored token (for internal use)
+  Future<String?> getStoredToken() async {
+    return await _getStoredToken();
+  }
 }
 
 /// User API client
