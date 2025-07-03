@@ -9,6 +9,10 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:blocpatternflutter/core/network/api_clients.dart' as _i817;
+import 'package:blocpatternflutter/core/network/api_example_bloc.dart' as _i714;
+import 'package:blocpatternflutter/core/network/api_service.dart' as _i359;
+import 'package:blocpatternflutter/core/network/network_info.dart' as _i408;
 import 'package:blocpatternflutter/core/network/network_module.dart' as _i506;
 import 'package:blocpatternflutter/core/utils/shared_preferences_module.dart'
     as _i748;
@@ -41,6 +45,7 @@ extension GetItInjectableX on _i174.GetIt {
     final networkModule = _$NetworkModule();
     final sharedPreferencesModule = _$SharedPreferencesModule();
     gh.lazySingleton<_i361.Dio>(() => networkModule.dio);
+    gh.lazySingleton<_i408.NetworkInfo>(() => networkModule.networkInfo);
     await gh.lazySingletonAsync<_i460.SharedPreferences>(
       () => sharedPreferencesModule.sharedPreferences,
       preResolve: true,
@@ -51,6 +56,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i541.CounterLocalDataSource>(
       () => _i541.CounterLocalDataSourceImpl(gh<_i460.SharedPreferences>()),
     );
+    gh.lazySingleton<_i359.ApiService>(() => _i359.ApiService(gh<_i361.Dio>()));
     gh.factory<_i549.CounterRepository>(
       () => _i808.CounterRepositoryImpl(gh<_i541.CounterLocalDataSource>()),
     );
@@ -60,10 +66,33 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i244.IncrementCounter>(
       () => _i244.IncrementCounter(gh<_i549.CounterRepository>()),
     );
+    gh.lazySingleton<_i817.AuthApiClient>(
+      () => _i817.AuthApiClient(
+        gh<_i359.ApiService>(),
+        gh<_i460.SharedPreferences>(),
+      ),
+    );
+    gh.lazySingleton<_i817.UserApiClient>(
+      () => _i817.UserApiClient(gh<_i359.ApiService>()),
+    );
+    gh.lazySingleton<_i817.FileUploadApiClient>(
+      () => _i817.FileUploadApiClient(gh<_i359.ApiService>()),
+    );
+    gh.lazySingleton<_i817.GenericApiClient>(
+      () => _i817.GenericApiClient(gh<_i359.ApiService>()),
+    );
     gh.factory<_i581.CounterBloc>(
       () => _i581.CounterBloc(
         getCounter: gh<_i534.GetCounter>(),
         incrementCounter: gh<_i244.IncrementCounter>(),
+      ),
+    );
+    gh.factory<_i714.ApiExampleBloc>(
+      () => _i714.ApiExampleBloc(
+        gh<_i817.AuthApiClient>(),
+        gh<_i817.UserApiClient>(),
+        gh<_i817.FileUploadApiClient>(),
+        gh<_i817.GenericApiClient>(),
       ),
     );
     return this;

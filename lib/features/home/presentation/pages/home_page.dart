@@ -32,20 +32,22 @@ class HomeView extends StatelessWidget {
           ),
         ],
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(UIConstants.spacingM),
+      body: Padding(
+        padding: const EdgeInsets.all(UIConstants.spacingM),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'You have pushed the button this many times:',
               style: TextStyle(fontSize: 16),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: UIConstants.spacingL),
-            CounterDisplay(),
-            SizedBox(height: UIConstants.spacingXL),
-            _ActionButtons(),
+            const SizedBox(height: UIConstants.spacingL),
+            const CounterDisplay(),
+            const SizedBox(height: UIConstants.spacingXL),
+            const _ActionButtons(),
+            const SizedBox(height: UIConstants.spacingL),
+            const _NavigationButtons(),
           ],
         ),
       ),
@@ -77,6 +79,38 @@ class _ActionButtons extends StatelessWidget {
           },
           icon: const Icon(Icons.remove),
           label: const Text('Decrement'),
+        ),
+      ],
+    );
+  }
+}
+
+class _NavigationButtons extends StatelessWidget {
+  const _NavigationButtons();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const Divider(),
+        const SizedBox(height: UIConstants.spacingM),
+        const Text(
+          'API Demo',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: UIConstants.spacingM),
+        ElevatedButton.icon(
+          onPressed: () {
+            context.push(AppRoutes.apiDemo);
+          },
+          icon: const Icon(Icons.api),
+          label: const Text('Test API Service'),
+        ),
+        const SizedBox(height: UIConstants.spacingS),
+        const Text(
+          'Comprehensive API testing with all HTTP methods,\nfile uploads, and form data',
+          style: TextStyle(fontSize: 12, color: Colors.grey),
+          textAlign: TextAlign.center,
         ),
       ],
     );

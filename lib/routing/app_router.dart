@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../features/home/presentation/pages/home_page.dart';
 import '../features/settings/presentation/pages/settings_page.dart';
+import '../features/api_demo/presentation/pages/api_demo_page.dart';
 
 class AppRoutes {
   static const String home = '/';
   static const String settings = '/settings';
+  static const String apiDemo = '/api-demo';
 }
 
 final GoRouter appRouter = GoRouter(
@@ -20,6 +22,11 @@ final GoRouter appRouter = GoRouter(
       path: AppRoutes.settings,
       name: 'settings',
       builder: (context, state) => const SettingsPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.apiDemo,
+      name: 'apiDemo',
+      builder: (context, state) => const ApiDemoPage(),
     ),
   ],
   errorBuilder: (context, state) => Scaffold(
